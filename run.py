@@ -16,7 +16,10 @@ SHEET = GSPREAD_CLIENT.open('immigration_projections_into_the_us')
 
 def get_processed_immigrants_abroad_data():
     """
-    Collect processed_immigrants_abroad figures from the user
+    Collect processed_immigrants_abroad figures from the user.
+    Run a while loop to get valid string of data from the user that must be a string
+    of six numbers separated by commas. The loop will repeatedly request for data input
+    until, valid data is provided by user.
     """
 
     while True:
@@ -57,6 +60,21 @@ def validate_data(values):
     return True
 
 
+def update_processed_immigrants_abroad_worksheet(data):
+    """
+    Update processed_immigrants_abroad worksheet, add new row with the list data provided.
+    """
+    print("Updating processed_immigrants_abroad worksheet...\n ")
+    processed_immigrants_abroad_worksheet = SHEET.worksheet("processed_immigrants_abroad")
+    processed_immigrants_abroad_worksheet.append_row(data)
+    print("Processed immigrants abroad worksheet updated successfully.\n")
+
+
 data = get_processed_immigrants_abroad_data()
+processed_immigrants_abroad_data = [int(num)  for num in data]
+update_processed_immigrants_abroad_worksheet(processed_immigrants_abroad_data)
+
+
+
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
