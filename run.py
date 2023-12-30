@@ -20,11 +20,28 @@ def get_processed_immigrants_abroad_data():
     """
     print("Please enter processed_immigrants_abroad data from the last year")
     print("Data should be six numbers separated by commas")
-    print("Example: 40,60,80")
-
+    print("Example: 20,30,40,50,60\n")
+    
     data_str = input("Enter your data here: ")
-    print(f"The data provided is {data_str}")
+    
+    processed_immigrants_abroad_data = data_str.split(",")
+    validate_data(processed_immigrants_abroad_data)
 
+
+
+def validate_data(values):
+    """
+    Inside the try, converts all string values into integers.
+    Raises ValueError if strings can't be converted to integers
+    or if there aren't excactly six values.
+    """
+    try:
+        if len(values) != 6:
+            raise ValueError(
+                f"Exactly 6 values required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
 
 get_processed_immigrants_abroad_data()
 # You can delete these comments, but do not change the name of this file
