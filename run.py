@@ -18,14 +18,22 @@ def get_processed_immigrants_abroad_data():
     """
     Collect processed_immigrants_abroad figures from the user
     """
-    print("Please enter processed_immigrants_abroad data from the last year")
-    print("Data should be six numbers separated by commas")
-    print("Example: 20,30,40,50,60\n")
+
+    while True:
+        print("Please enter processed_immigrants_abroad data from the last year")
+        print("Data should be six numbers separated by commas")
+        print("Example: 20,30,40,50,60\n")
+        
+        data_str = input("Enter your data here: ")
+        
+        processed_immigrants_abroad_data = data_str.split(",")
+        
+        if validate_data(processed_immigrants_abroad_data):
+            print("Data is valid!")
+            break
+
+    return processed_immigrants_abroad_data
     
-    data_str = input("Enter your data here: ")
-    
-    processed_immigrants_abroad_data = data_str.split(",")
-    validate_data(processed_immigrants_abroad_data)
 
 
 
@@ -43,7 +51,12 @@ def validate_data(values):
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
+        return False
 
-get_processed_immigrants_abroad_data()
+
+    return True
+
+
+data = get_processed_immigrants_abroad_data()
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
