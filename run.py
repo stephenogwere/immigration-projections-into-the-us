@@ -60,7 +60,11 @@ def validate_data(values):
 
     return True
 
-
+"""
+These functions that is; update_processed_immigrants_abroad_worksheet(data) and
+update_aspiring_immigrants_worksheet(data) haven't been deleted to serve as a 
+reminder example on how refactoring works.
+"""
 def update_processed_immigrants_abroad_worksheet(data):
     """
     Update processed_immigrants_abroad worksheet, add new row with the list data provided.
@@ -79,6 +83,18 @@ def update_aspiring_immigrants_worksheet(data):
     aspiring_immigrants_worksheet = SHEET.worksheet("aspiring_immigrants")
     aspiring_immigrants_worksheet.append_row(data)
     print("Aspiring immigrants worksheet updated successfully.\n")
+
+
+def update_worksheet(data, worksheet):
+    """
+    Receives a list of integers to be inserted into a worksheet
+    Update the relevant worksheet with the data provided
+    """
+    print(f"Updating {worksheet} worksheet...\n")
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f"{worksheet} worksheet updated successfully\n")
+
 
 
 def calculate_aspiring_immigrants_data(processed_immigrants_abroad_row):
@@ -104,9 +120,9 @@ def main():
     """
     data = get_processed_immigrants_abroad_data()
     processed_immigrants_abroad_data = [int(num)  for num in data]
-    update_processed_immigrants_abroad_worksheet(processed_immigrants_abroad_data)
+    update_worksheet(processed_immigrants_abroad_data, "processed_immigrants_abroad")
     new_aspiring_immigrants_data = calculate_aspiring_immigrants_data(processed_immigrants_abroad_data)
-    update_aspiring_immigrants_worksheet(new_aspiring_immigrants_data)
+    update_worksheet(new_aspiring_immigrants_data, "aspiring_immigrants")
     
 
 print("Welcome to Immigration Projections into the US Data Automation")
