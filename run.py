@@ -79,7 +79,13 @@ def calculate_aspiring_immigrants_data(processed_immigrants_abroad_row):
     print("Calculating aspiring immigrants...\n")
     immigrants_in_country = SHEET.worksheet("immigrants_in_country").get_all_values()
     immigrants_in_country_row = immigrants_in_country[-1]
-    print(immigrants_in_country_row)
+
+    aspiring_immigrants_data = []
+    for  immigrants_in_country, processed_immigrants_abroad in zip(immigrants_in_country_row, processed_immigrants_abroad_row):
+        aspiring_immigrants = int(immigrants_in_country) - processed_immigrants_abroad
+        aspiring_immigrants_data.append(aspiring_immigrants)
+    
+    return aspiring_immigrants_data
 
 
 def main():
@@ -89,7 +95,8 @@ def main():
     data = get_processed_immigrants_abroad_data()
     processed_immigrants_abroad_data = [int(num)  for num in data]
     update_processed_immigrants_abroad_worksheet(processed_immigrants_abroad_data)
-    calculate_aspiring_immigrants_data(processed_immigrants_abroad_data)
+    new_aspiring_immigrants_data = calculate_aspiring_immigrants_data(processed_immigrants_abroad_data)
+    print(new_aspiring_immigrants_data)
     
 
 print("Welcome to Immigration Projections into the US Data Automation")
