@@ -71,6 +71,16 @@ def update_processed_immigrants_abroad_worksheet(data):
     print("Processed immigrants abroad worksheet updated successfully.\n")
 
 
+def update_aspiring_immigrants_worksheet(data):
+    """
+    Update aspiring_immigrants worksheet, add new row with the list data provided.
+    """
+    print("Updating aspiring immigrants worksheet...\n ")
+    aspiring_immigrants_worksheet = SHEET.worksheet("aspiring_immigrants")
+    aspiring_immigrants_worksheet.append_row(data)
+    print("Aspiring immigrants worksheet updated successfully.\n")
+
+
 def calculate_aspiring_immigrants_data(processed_immigrants_abroad_row):
     """
     Compare the processed immigrants abroad figures with immigrants in country data and calculate
@@ -96,7 +106,7 @@ def main():
     processed_immigrants_abroad_data = [int(num)  for num in data]
     update_processed_immigrants_abroad_worksheet(processed_immigrants_abroad_data)
     new_aspiring_immigrants_data = calculate_aspiring_immigrants_data(processed_immigrants_abroad_data)
-    print(new_aspiring_immigrants_data)
+    update_aspiring_immigrants_worksheet(new_aspiring_immigrants_data)
     
 
 print("Welcome to Immigration Projections into the US Data Automation")
