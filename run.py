@@ -114,6 +114,19 @@ def calculate_aspiring_immigrants_data(processed_immigrants_abroad_row):
     return aspiring_immigrants_data
 
 
+def get_last_5_entries_processed_immigrants_abroad():
+    processed_immigrants_abroad = SHEET.worksheet("processed_immigrants_abroad")
+    
+
+    columns = []
+    for ind in range(1, 7):
+        column = processed_immigrants_abroad.col_values(ind)
+        columns.append(column[-5:])
+    
+    return columns
+
+
+
 def main():
     """
     Runs all program functions
@@ -126,7 +139,9 @@ def main():
     
 
 print("Welcome to Immigration Projections into the US Data Automation")
-main()
+# main()
+
+processed_immigrants_abroad_columns = get_last_5_entries_processed_immigrants_abroad()
 
 
 
