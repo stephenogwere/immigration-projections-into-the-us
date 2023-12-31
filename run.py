@@ -1,6 +1,7 @@
 # Import dependencies
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -70,9 +71,29 @@ def update_processed_immigrants_abroad_worksheet(data):
     print("Processed immigrants abroad worksheet updated successfully.\n")
 
 
-data = get_processed_immigrants_abroad_data()
-processed_immigrants_abroad_data = [int(num)  for num in data]
-update_processed_immigrants_abroad_worksheet(processed_immigrants_abroad_data)
+def calculate_aspiring_immigrants_data(processed_immigrants_abroad_row):
+    """
+    Compare the processed immigrants abroad figures with immigrants in country data and calculate
+    the difference that is the aspiring immigrants for each category type.
+    """
+    print("Calculating aspiring immigrants...\n")
+    immigrants_in_country = SHEET.worksheet("immigrants_in_country").get_all_values()
+    immigrants_in_country_row = immigrants_in_country[-1]
+    print(immigrants_in_country_row)
+
+
+def main():
+    """
+    Runs all program functions
+    """
+    data = get_processed_immigrants_abroad_data()
+    processed_immigrants_abroad_data = [int(num)  for num in data]
+    update_processed_immigrants_abroad_worksheet(processed_immigrants_abroad_data)
+    calculate_aspiring_immigrants_data(processed_immigrants_abroad_data)
+    
+
+print("Welcome to Immigration Projections into the US Data Automation")
+main()
 
 
 
