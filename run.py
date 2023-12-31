@@ -126,6 +126,18 @@ def get_last_5_entries_processed_immigrants_abroad():
     return columns
 
 
+def calculate_immigrants_in_country_data(data):
+    print("Calculating immigrants in country data...\n")
+    new_immigrants_in_country_data = []
+
+    for column in data:
+        int_column = [int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        immigrants_in_country_num = average * 1.1
+        new_immigrants_in_country_data.append(round(immigrants_in_country_num))
+    
+    return new_immigrants_in_country_data
+
 
 def main():
     """
@@ -136,12 +148,15 @@ def main():
     update_worksheet(processed_immigrants_abroad_data, "processed_immigrants_abroad")
     new_aspiring_immigrants_data = calculate_aspiring_immigrants_data(processed_immigrants_abroad_data)
     update_worksheet(new_aspiring_immigrants_data, "aspiring_immigrants")
-    
+    processed_immigrants_abroad_columns = get_last_5_entries_processed_immigrants_abroad()
+    immigrants_in_country_data = calculate_immigrants_in_country_data(processed_immigrants_abroad_columns)
+    update_worksheet(immigrants_in_country_data, "immigrants_in_country")
+
 
 print("Welcome to Immigration Projections into the US Data Automation")
-# main()
+main()
 
-processed_immigrants_abroad_columns = get_last_5_entries_processed_immigrants_abroad()
+
 
 
 
